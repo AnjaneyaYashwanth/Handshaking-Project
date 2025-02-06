@@ -49,29 +49,36 @@ while True:
             if label == 'Left':
                 left_hand_detected = True
 
-        # If only left hand is detected, send signal to Arduino and update display text
+        # If only left hand is detected
+        #  send signal to Arduino and update display text
         if left_hand_detected:
             display_text = "Please place your right hand before the arm"
             
-            # If the left hand was not detected in the previous frame, send a signal to Arduino
+            # If the left hand was not detected in the previous frame
+            #  send a signal to Arduino
             if not left_hand_detected_previous and arduino:
-                arduino.write(b'1')  # Send '1' as a signal to Arduino
+                arduino.write(b'1') 
+                 # Send '1' as a signal to Arduino
                 print("Signal sent to Arduino: 1")
 
             # Try to read the distance value from the Arduino
-            if arduino and arduino.in_waiting > 0:  # Check if there's data to read
+            if arduino and arduino.in_waiting > 0:  
+                # Check if there's data to read
                 try:
-                    distance_value = arduino.readline().decode('utf-8').strip()  # Read and decode the distance value
+                    distance_value = arduino.readline().decode('utf-8').strip() 
+                     # Read and decode the distance value
                     print(f"Distance: {distance_value} cm")
                 except:
-                    distance_value = "Error reading distance"  # Handle any exceptions while reading
+                    distance_value = "Error reading distance"  
+                    # Handle any exceptions while reading
                     print("Failed to read distance value")
 
             left_hand_detected_previous = True
         else:
             left_hand_detected_previous = False
 
-    # Display the message and distance on the screen
+    # Display the message 
+    # distance on the screen
     cv2.putText(img, display_text, (100, 50),
                 cv2.FONT_HERSHEY_COMPLEX,
                 0.9, (0, 255, 0), 2)
@@ -86,7 +93,8 @@ while True:
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
-# Release video capture and close all windows
+# Release video capture and close all 
+# windows
 cap.release()
 cv2.destroyAllWindows()
 
