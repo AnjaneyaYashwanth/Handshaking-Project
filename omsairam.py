@@ -1,7 +1,7 @@
 import cv2
 import mediapipe as mp
 from google.protobuf.json_format import MessageToDict
-import serial  # Import for Arduino communication
+import serial  
 import time
 
 # Initialize MediaPipe Hand solution
@@ -13,11 +13,12 @@ hands = mpHands.Hands(
     min_tracking_confidence=0.75,
     max_num_hands=2)
 
-# Initialize video capture (webcam)
+# Initialize video capture 
 cap = cv2.VideoCapture(0)
 
-# Specify the correct serial port for the Arduino (e.g., 'COM3', 'COM4' for Windows or '/dev/ttyUSB0' for Linux)
-arduino_port = 'COM6'  # Change this to the port your Arduino is connected to
+# Specify the correct serial port for the Arduino 
+arduino_port = 'COM6'  
+# Change this to the port your Arduino is connected to
 try:
     # Establish a serial communication with the Arduino
     arduino = serial.Serial(arduino_port, 9600, timeout=1)
@@ -28,11 +29,13 @@ except serial.SerialException:
 
 # Flag to indicate if the left hand was detected in the previous frame
 left_hand_detected_previous = False
-distance_value = "No data"  # Variable to hold the distance value received from Arduino
+distance_value = "No data"  
+# Variable to hold the distance value received from Arduino
 
 while True:
     success, img = cap.read()
-    img = cv2.flip(img, 1)  # Flip the image horizontally
+    img = cv2.flip(img, 1) 
+     # Flip the image horizontally
     imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     results = hands.process(imgRGB)
 
@@ -93,8 +96,7 @@ while True:
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
-# Release video capture and close all 
-# windows
+# Release video capture and close all windows
 cap.release()
 cv2.destroyAllWindows()
 
