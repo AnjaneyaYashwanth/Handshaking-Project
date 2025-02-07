@@ -22,7 +22,8 @@ arduino_port = 'COM6'
 try:
     # Establish a serial communication with the Arduino
     arduino = serial.Serial(arduino_port, 9600, timeout=1)
-    time.sleep(2)  # Wait for the connection to establish
+    time.sleep(2)  
+    # Wait for the connection to establish
 except serial.SerialException:
     print(f"Could not open port {arduino_port}. Please check the connection and the port.")
     arduino = None
@@ -52,13 +53,11 @@ while True:
             if label == 'Left':
                 left_hand_detected = True
 
-        # If only left hand is detected
-        #  send signal to Arduino and update display text
+        # If only left hand is detected  send signal to Arduino and update display text
         if left_hand_detected:
             display_text = "Please place your right hand before the arm"
             
-            # If the left hand was not detected in the previous frame
-            #  send a signal to Arduino
+            # If the left hand was not detected in the previous framesend a signal to Arduino
             if not left_hand_detected_previous and arduino:
                 arduino.write(b'1') 
                  # Send '1' as a signal to Arduino
@@ -80,8 +79,7 @@ while True:
         else:
             left_hand_detected_previous = False
 
-    # Display the message 
-    # distance on the screen
+    # Display the message distance on the screen
     cv2.putText(img, display_text, (100, 50),
                 cv2.FONT_HERSHEY_COMPLEX,
                 0.9, (0, 255, 0), 2)
