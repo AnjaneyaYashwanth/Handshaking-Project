@@ -12,8 +12,7 @@ hands = mpHands.Hands(
     min_detection_confidence=0.75,
     min_tracking_confidence=0.75,
     max_num_hands=2)
-
-# Initialize video capture 
+ 
 cap = cv2.VideoCapture(0)
 
 # Specify the correct serial port for the Arduino 
