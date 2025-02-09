@@ -45,14 +45,16 @@ while True:
     if results.multi_hand_landmarks:
         left_hand_detected = False
 
-        # Check for left and right hands
+        # Check for left hand 
+        # right hand
         for i, hand in enumerate(results.multi_handedness):
             label = MessageToDict(hand)['classification'][0]['label']
 
             if label == 'Left':
                 left_hand_detected = True
 
-        # If only left hand is detected  send signal to Arduino and update display text
+        # If only left hand is detected  send signal to Arduino  
+        # update display text
         if left_hand_detected:
             display_text = "Please place your right hand before the arm"
             
